@@ -1,25 +1,46 @@
-import {Link,  } from 'react-router-dom'
+import { Link, useNavigate, } from 'react-router-dom'
 import React from 'react'
 import { useState } from 'react';
-function LoginComp(){
-    const [LoginText,setLoginText]=useState('');
-    const [LoginPassword,setLoginPasswword]=useState('');
- 
-    
-    const LoginCheck = (e)=>{
-        e.preventDefault();
+function LoginComp() {
+    const [LoginText, setLoginText] = useState('');
+    const [LoginPassword, setLoginPasswword] = useState('');
+   const navigate = useNavigate();
 
+
+
+    const Login = () => {
+        fetch('http://10.38.56.172:433/login', { method: "POST",
+            headers : { 'Content-Type': "application/json" },
+            body: JSON.stringify({ email: LoginText,  password: LoginPassword })}).then(resp => {
+            if (resp.status === 202) {
+                return resp.json();
+            } else if (resp.status === 204) {
+                alert("user not found")
+                
+            } else {
+                alert('wrong pass');    
+                
+            }
+        }).then(data => {
+            console.log(data);
+            if(typeof data === 'object' && data !== null){
+            document.cookie = "token=" + data.token + ';'
+            document.cookie = "id = "+data.id+";";
+            document.cookie = "username="+data.username+";";
+            navigate('/chat');
+            }
+        })
     }
-     
-    return(
+
+    return (
         <div>
             <h3>Login Page</h3>
-            <from>
-    <input type='text' placeholder='Username' value={LoginText} onChange={(e)=>setLoginText(e.target.value)} id='LoginText'></input>
-    <input type='password' placeholder='Password' value={LoginPassword} onChange={e=>setLoginPasswword(e.target.value)} id='LoginPass'></input>
-    <button type='submit'>LOGIN</button>
-            </from>
-        <Link to="/register">Register!</Link>
+
+            <input type='text' placeholder='Email' value={LoginText} onChange={(e) => setLoginText(e.target.value)} id='LoginText'></input>
+            <input type='password' placeholder='Password' value={LoginPassword} onChange={e => setLoginPasswword(e.target.value)} id='LoginPass'></input>
+            <button onClick={Login} >LOGIN</button>
+
+            <Link to="/register">Register!</Link>
         </div>
     );
 }

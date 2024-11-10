@@ -1,11 +1,20 @@
 import ChatMessageList from './ChatMessageList';
 import ChatMessageInput from './ChatMessageInput'
+import { SocketProvider } from '../socketComp/socketComp';
+import { useState } from 'react';
+function ChatWindowComp() {
+ const [roomId,setRoomId] = useState('odaiki');
 
-function ChatWindowComp(){
-    return(
+    return (
         <div>
-            <ChatMessageList messages={{sender:'serhat',text:"ne ne !"}}></ChatMessageList>
-            <ChatMessageInput></ChatMessageInput>
+            <SocketProvider>
+                <ChatMessageList room={roomId}></ChatMessageList>
+
+                <ChatMessageInput room={roomId}></ChatMessageInput>
+            </SocketProvider>
+
+
+
         </div>
     )
 }
