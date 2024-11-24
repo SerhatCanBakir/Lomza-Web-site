@@ -1,0 +1,40 @@
+/* Ana container */
+.message-list-container {
+  width: 100%; /* Kapsayıcı genişliğini doldurur */
+  max-height: 900px; /* Maksimum yüksekliği belirler */
+  overflow-y: auto; /* Yatay taşmaları engeller, dikey kaydırma ekler */
+  background-color: #f9f9f9; /* Arka plan rengi */
+  border: 1px solid #ddd; /* Kenarlık */
+  border-radius: 8px; /* Yuvarlak köşeler */
+  padding: 10px; /* İçerik için boşluk */
+  box-sizing: border-box; /* Padding dahil edilir */
+}
+
+/* Her bir mesaj */
+.message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word; /* Uzun metinlerin taşmasını önler */
+}
+
+/* Gönderenin mesajı */
+.message.sent {
+  align-self: flex-end; /* Mesajı sağa hizalar */
+  background-color: #dcf8c6; /* Gönderilen mesaj için özel renk */
+}
+
+/* Alınan mesaj */
+.message.received {
+  align-self: flex-start; /* Mesajı sola hizalar */
+}
+
+/* Zaman damgası */
+.timestamp {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+  text-align: right;
+}

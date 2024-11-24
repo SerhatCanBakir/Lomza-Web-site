@@ -1,0 +1,38 @@
+.manager-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .user-info {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #eef;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .friend-add-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .friend-add-section button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .friend-add-section button:hover {
+    background-color: #45a049;
+  }
+  

@@ -1,0 +1,50 @@
+/* MessageInput.css */
+
+/* Ana container */
+.message-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f4f4f9;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Emoji picker container */
+  .emoji-picker-container {
+    margin-right: 10px;
+  }
+  
+  /* Giriş kutusu (input) */
+  .message-input-container input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    margin-right: 10px;
+    transition: border-color 0.3s;
+  }
+  
+  .message-input-container input:focus {
+    border-color: #4caf50;
+  }
+  
+  /* Gönder butonu */
+  .message-input-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .message-input-container button:hover {
+    background-color: #45a049;
+  }
+  

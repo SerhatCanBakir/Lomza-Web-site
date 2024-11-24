@@ -1,39 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import {  useSocket } from '../socketComp/socketComp';
-function MessageList({room}) {
+import { useSocket } from '../socketComp/socketComp';
+import './MessageList.css'; // CSS dosyasını dahil ediyoruz
+
+function MessageList({ room }) {
+  const [messages, setMessages] = useState([]);
   const socket = useSocket();
-  const [message,setMessage] = useState([]);
-  useEffect(()=>{
-    if(socket){
-      console.log('socket foundend');
-      socket.emit('room-switch',room);
-      socket.emit('get-all',room);
-      socket.on('send-all',message=>{
-        setMessage(message);
-       
-      })
-      socket.on('message-get',(msg)=>{
-      
-        const DTO = {senderId:msg.Sender.id,sender:msg.Sender.username,content:msg.content,}
-        setMessage((message)=>[...message,DTO]);
-      })
 
+  function getCookie(name) {
+    const value = `; ${document.cookie};`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+  useEffect(() => {
+    if (socket) {
+      socket.emit('room-switch', room);
+      socket.emit('get-all', room);
 
-     return ()=>{
-      socket.off('send-all');
-      
-     }
+      socket.on('send-all', (messageList) => {
+        setMessages(messageList);
+      });
+
+      socket.on('message-get', (newMessage) => {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      });
+
+      return () => {
+        socket.off('send-all');
+        socket.off('message-get');
+      };
     }
-  },[socket])
-  
+  }, [room, socket]);
+
   return (
-    <div>
-    <h2>Messages:</h2>
-    {message.map((msg, index) => (
-      <p key={index}>{msg.sender+":"+msg.content}</p>
-    ))}
-  </div>
-);
-};
+    <div className="message-list-container">
+      {messages.map((msg, index) => (
+        <div key={index} className={`message ${msg.senderId === getCookie('id') ? 'sent' : 'received'}`}>
+          <h5>{msg.sender}</h5>
+          <p>{msg.content}</p>
+          <span className="timestamp">{msg.sendTime}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default MessageList;

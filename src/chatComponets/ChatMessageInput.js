@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EmojiPicker from './EmojiPickerComp';
 import { useSocket } from '../socketComp/socketComp';
+import './MessageInput.css'; // CSS dosyasını ekledik
+
 function MessageInput({ room }) {
   const [message, setMessage] = useState('');
+  const [roomId, setRoomId] = useState('ilkoda');
   const socket = useSocket();
+
+  useEffect(() => {
+    setRoomId(room);
+  }, [room]);
+
   const handleSend = () => {
     if (message.trim()) {
       SendMessage(message);
       setMessage('');
     }
   };
-  
-  function onSelectEmoji(emoji){
-    setMessage(message+emoji);
+
+  function onSelectEmoji(emoji) {
+    setMessage(message + emoji);
   }
 
   function getCookie(name) {
-    const value = `; ${document.cookie}`;
+    const value = `; ${document.cookie};`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
@@ -24,21 +32,21 @@ function MessageInput({ room }) {
   const takeNameAndIdFromCookie = () => {
     let id = getCookie('id');
     let username = getCookie('username');
-
-
     return { id: id, username: username };
-  }
+  };
 
   const SendMessage = (message) => {
     if (socket) {
       let sender = takeNameAndIdFromCookie();
-      socket.emit('message-send', { chatId: room, Sender: sender, content: message });
+      socket.emit('message-send', { chatId: roomId, Sender: sender, content: message });
     }
-  }
+  };
 
   return (
-    <div>
-      <EmojiPicker onSelectEmoji={onSelectEmoji}></EmojiPicker>
+    <div className="message-input-container">
+      <div className="emoji-picker-container">
+        <EmojiPicker onSelectEmoji={onSelectEmoji} />
+      </div>
       <input
         type="text"
         value={message}

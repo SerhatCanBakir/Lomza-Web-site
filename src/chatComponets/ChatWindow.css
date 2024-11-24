@@ -1,0 +1,39 @@
+/* Ana container */
+.chat-window-container {
+    display: flex;
+    flex-direction: column; /* Bileşenleri dikey hizalar */
+    height: 100vh; /* Ekranın tamamını kaplar */
+    background-color: #f4f4f9;
+  }
+  
+  /* Mesaj listesi */
+  .message-list-container {
+    flex: 1; /* Kalan alanı doldurur */
+    overflow-y: auto; /* Uzun içerikler kaydırılabilir */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* Mesaj giriş alanı */
+  .message-input-container {
+    flex-shrink: 0; /* Yalnızca içeriği kadar yer kaplar */
+    background-color: #ffffff;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Arkadaş listesi */
+  .friend-list-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #ffffff;
+    border-left: 1px solid #ddd;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
